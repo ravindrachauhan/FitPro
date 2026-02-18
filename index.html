@@ -2,22 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<script>
-// Block Cloudflare email-decode script (not needed, causes 404 noise)
-(function(){
-  var _orig = document.createElement.bind(document);
-  document.createElement = function(tag){
-    var el = _orig(tag);
-    if(tag === 'script'){
-      Object.defineProperty(el, 'src', {
-        set: function(v){ if(v && v.indexOf('email-decode') === -1) el.setAttribute('src', v); },
-        get: function(){ return el.getAttribute('src') || ''; }
-      });
-    }
-    return el;
-  };
-})();
-</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FitPro Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -326,7 +310,7 @@ tbody tr:last-child td{border-bottom:none}
     <div class="lcard">
       <h2>Welcome Back</h2>
       <p>Sign in to your account to continue</p>
-      <div class="lerr" id="lerr">Invalid credentials! Use <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4627222b2f2806213f2b6825292b">[email&#160;protected]</a> / admin123</div>
+      <div class="lerr" id="lerr">Invalid credentials! Please use Username: admin / Password: admin123</div>
       <div class="fg"><label class="fl">Username</label><input id="em" class="fc" type="text" value="admin" placeholder="Enter username" autocomplete="username"/></div>
       <div class="fg"><label class="fl">Password</label><input id="pw" class="fc" type="password" value="admin123" autocomplete="current-password"/></div>
       <button class="lbtn" id="lbtn">Sign In &#8594;</button>
@@ -496,7 +480,7 @@ tbody tr:last-child td{border-bottom:none}
 </div>
 
 <!-- MODALS -->
-<div class="ov" id="m-addcust" style="display:none"><div class="mb"><div class="mh"><span class="mt2">Add New Customer</span><button class="mc" data-close="m-addcust">&#10005;</button></div><div class="mbod"><div class="fr2"><div class="fg"><label class="fl">Full Name *</label><input class="fc" placeholder="Rahul Sharma"/></div><div class="fg"><label class="fl">Phone</label><input class="fc" placeholder="9876543210"/></div></div><div class="fg"><label class="fl">Email</label><input class="fc" type="email" placeholder="rahul@email.com"/></div><div class="fg"><label class="fl">Address</label><textarea class="fc" placeholder="Full address..."></textarea></div><div class="fg"><label class="fl">Membership Type</label><select class="fc"><option value="basic">Basic</option><option value="premium">Premium</option><option value="vip">VIP</option></select></div></div><div class="mf"><button class="btn bs" data-close="m-addcust">Cancel</button><button class="btn bp" data-toast="Customer added!" data-close="m-addcust">Add Customer</button></div></div></div>
+<div class="ov" id="m-addcust" style="display:none"><div class="mb"><div class="mh"><span class="mt2">Add New Customer</span><button class="mc" data-close="m-addcust">&#10005;</button></div><div class="mbod"><div class="fr2"><div class="fg"><label class="fl">Full Name *</label><input class="fc" placeholder="Rahul Sharma"/></div><div class="fg"><label class="fl">Phone</label><input class="fc" placeholder="9876543210"/></div></div><div class="fg"><label class="fl">Email</label><input class="fc" type="email" placeholder="Enter email address"/></div><div class="fg"><label class="fl">Address</label><textarea class="fc" placeholder="Full address..."></textarea></div><div class="fg"><label class="fl">Membership Type</label><select class="fc"><option value="basic">Basic</option><option value="premium">Premium</option><option value="vip">VIP</option></select></div></div><div class="mf"><button class="btn bs" data-close="m-addcust">Cancel</button><button class="btn bp" data-toast="Customer added!" data-close="m-addcust">Add Customer</button></div></div></div>
 
 <div class="ov" id="m-viewcust" style="display:none"><div class="mb"><div class="mh"><span class="mt2">Customer Details</span><button class="mc" data-close="m-viewcust">&#10005;</button></div><div class="mbod" style="text-align:center"><div class="dav" id="vc-av"></div><div style="font-family:Syne,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px" id="vc-name"></div><span class="bdg" id="vc-mem"></span><div class="dg"><div class="di"><span class="dl">Email</span><span id="vc-email"></span></div><div class="di"><span class="dl">Phone</span><span id="vc-phone"></span></div><div class="di"><span class="dl">Address</span><span id="vc-addr"></span></div><div class="di"><span class="dl">Status</span><span id="vc-st"></span></div></div></div><div class="mf"><button class="btn bs" data-close="m-viewcust">Close</button></div></div></div>
 
@@ -518,7 +502,7 @@ tbody tr:last-child td{border-bottom:none}
 
 <div class="toast" id="toastEl"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function() {
   var gymData = [
     {n:"Yoga",c:"Mind and Body",d:"Relaxing yoga for flexibility",dur:60,t:"Priya Sharma",cap:15,s:"Mon-Wed-Fri 7:00 AM",st:"active",col:"#7C3AED"},
@@ -659,6 +643,11 @@ tbody tr:last-child td{border-bottom:none}
   document.querySelectorAll(".ov").forEach(function(ov) {
     ov.addEventListener("pointerdown", function(e) { if (e.target === ov) ov.style.display = "none"; });
   });
+  // Login button uses click (not pointerdown) so input values are fully committed
+  document.getElementById("lbtn").addEventListener("click", function(e) {
+    e.stopPropagation();
+    doLogin();
+  });
   document.getElementById("em").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
   document.getElementById("pw").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
   document.getElementById("bs").addEventListener("input", calcBill);
@@ -671,13 +660,12 @@ tbody tr:last-child td{border-bottom:none}
     renderGym(gymData.filter(function(a) { return a.n.toLowerCase().indexOf(v) > -1 || a.c.toLowerCase().indexOf(v) > -1; }));
   });
 
-  // UNIFIED CLICK HANDLER - pointerdown for instant response, no 300ms delay
+  // UNIFIED EVENT HANDLER
   document.addEventListener("pointerdown", function(e) {
     var t = e.target;
     var idEl = t.closest("[id]");
     var id = idEl ? idEl.id : "";
 
-    if (id === "lbtn")         { doLogin(); return; }
     if (id === "logoutBtn")    { document.getElementById("DP").style.display = "none"; document.getElementById("LP").style.display = "grid"; return; }
     if (id === "nv-dashboard") { showSec("dashboard"); return; }
     if (id === "nv-customers") { showSec("customers"); return; }
