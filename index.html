@@ -333,22 +333,22 @@ tbody tr:last-child td{border-bottom:none}
         <div><div class="ln">FitPro</div><div class="ls">Management</div></div>
       </div>
       <nav class="sbnav">
-        <button class="ni ac" id="nv-dashboard"><span class="nix">&#128202;</span><span class="nl">Dashboard</span></button>
+        <button class="ni ac" id="nv-dashboard" onclick="showSec('dashboard')"><span class="nix">&#128202;</span><span class="nl">Dashboard</span></button>
         <div class="ng">
-          <button class="ngh" id="grp-masters"><span class="nix">&#128193;</span><span class="nl">Masters</span><span class="chev op" id="cv-masters">&#8250;</span></button>
+          <button class="ngh" id="grp-masters" onclick="toggleGrp('nc-masters','cv-masters')"><span class="nix">&#128193;</span><span class="nl">Masters</span><span class="chev op" id="cv-masters">&#8250;</span></button>
           <div class="nch op" id="nc-masters">
-            <button class="ni" id="nv-customers"><span class="nix">&#128101;</span><span class="nl">Customers</span></button>
-            <button class="ni" id="nv-products"><span class="nix">&#128230;</span><span class="nl">Products</span></button>
+            <button class="ni" id="nv-customers" onclick="showSec('customers')"><span class="nix">&#128101;</span><span class="nl">Customers</span></button>
+            <button class="ni" id="nv-products" onclick="showSec('products')"><span class="nix">&#128230;</span><span class="nl">Products</span></button>
           </div>
         </div>
         <div class="ng">
-          <button class="ngh" id="grp-trans"><span class="nix">&#128179;</span><span class="nl">Transactions</span><span class="chev op" id="cv-trans">&#8250;</span></button>
+          <button class="ngh" id="grp-trans" onclick="toggleGrp('nc-trans','cv-trans')"><span class="nix">&#128179;</span><span class="nl">Transactions</span><span class="chev op" id="cv-trans">&#8250;</span></button>
           <div class="nch op" id="nc-trans">
-            <button class="ni" id="nv-orders"><span class="nix">&#128722;</span><span class="nl">Orders</span></button>
-            <button class="ni" id="nv-billing"><span class="nix">&#129534;</span><span class="nl">Billing &amp; Receipts</span></button>
+            <button class="ni" id="nv-orders" onclick="showSec('orders')"><span class="nix">&#128722;</span><span class="nl">Orders</span></button>
+            <button class="ni" id="nv-billing" onclick="showSec('billing')"><span class="nix">&#129534;</span><span class="nl">Billing &amp; Receipts</span></button>
           </div>
         </div>
-        <button class="ni" id="nv-gym"><span class="nix">&#127947;</span><span class="nl">GYM Activities</span></button>
+        <button class="ni" id="nv-gym" onclick="showSec('gym')"><span class="nix">&#127947;</span><span class="nl">GYM Activities</span></button>
       </nav>
       <div class="sbfoot">
         <div class="uav">A</div>
@@ -361,7 +361,7 @@ tbody tr:last-child td{border-bottom:none}
     <div class="mn" id="mainContent">
       <header class="tb">
         <div class="tb-left">
-          <button class="hamburger" id="hamburger">&#9776;</button>
+          <button class="hamburger" id="hamburger" onclick="openSidebar()">&#9776;</button>
           <div><div class="tbt" id="ttl">Dashboard</div><div class="tbs" id="tsb">FitPro</div></div>
         </div>
         <div class="tbr">
@@ -399,7 +399,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="sec" id="sec-customers">
           <div class="sh">
             <div><div class="st">Customers</div><div class="ss">3 total customers</div></div>
-            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="csrch" placeholder="Search customers..."/></div><button class="btn bp" id="addCustBtn">+ Add Customer</button></div>
+            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="csrch" placeholder="Search customers..."/></div><button class="btn bp" id="addCustBtn" onclick="openModal('m-addcust')">+ Add Customer</button></div>
           </div>
           <div class="cd"><div class="tc"><table>
             <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>Email</th><th>Membership</th><th>Status</th><th>Actions</th></tr></thead>
@@ -415,7 +415,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="sec" id="sec-products">
           <div class="sh">
             <div><div class="st">Products</div><div class="ss">5 total products</div></div>
-            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="psrch" placeholder="Search products..."/></div><button class="btn bp" id="addProdBtn">+ Add Product</button></div>
+            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="psrch" placeholder="Search products..."/></div><button class="btn bp" id="addProdBtn" onclick="openModal('m-addprod')">+ Add Product</button></div>
           </div>
           <div class="cd"><div class="tc"><table>
             <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
@@ -446,7 +446,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="sec" id="sec-billing">
           <div class="sh">
             <div><div class="st">Billing &amp; Receipts</div><div class="ss">8 total bills</div></div>
-            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input placeholder="Search bills..."/></div><button class="btn bp" id="addBillBtn">+ New Bill</button></div>
+            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input placeholder="Search bills..."/></div><button class="btn bp" id="addBillBtn" onclick="openModal('m-addbill')">+ New Bill</button></div>
           </div>
           <div class="cd"><div class="tc"><table>
             <thead><tr><th>Invoice</th><th>Customer</th><th>Date</th><th>Total</th><th>Method</th><th>Status</th><th>Actions</th></tr></thead>
@@ -462,7 +462,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="sec" id="sec-gym">
           <div class="sh">
             <div><div class="st">GYM Activities</div><div class="ss">10 activities available</div></div>
-            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="gsrch" placeholder="Search activities..."/></div><button class="btn bp" id="addGymBtn">+ Add Activity</button></div>
+            <div class="sa"><div class="srch"><span class="sico">&#128269;</span><input id="gsrch" placeholder="Search activities..."/></div><button class="btn bp" id="addGymBtn" onclick="openModal('m-addgym')">+ Add Activity</button></div>
           </div>
           <div class="gg" id="gymgrid"></div>
         </div>
@@ -495,7 +495,7 @@ tbody tr:last-child td{border-bottom:none}
 
 <div class="ov" id="m-addbill" style="display:none"><div class="mb"><div class="mh"><span class="mt2">Create / Edit Bill</span><button class="mc" data-close="m-addbill">&#10005;</button></div><div class="mbod"><div class="fg"><label class="fl">Customer</label><select class="fc"><option value="">Walk-in</option><option>Rahul Sharma</option><option>Anita Patel</option><option>Kiran Mehta</option></select></div><div class="fr2"><div class="fg"><label class="fl">Subtotal (Rs.) *</label><input type="number" class="fc" id="bs" placeholder="2499"/></div><div class="fg"><label class="fl">Tax (Rs.)</label><input type="number" class="fc" id="bt" placeholder="125"/></div></div><div class="fr2"><div class="fg"><label class="fl">Discount (Rs.)</label><input type="number" class="fc" id="bd3" value="0"/></div><div class="fg"><label class="fl">Total (Rs.)</label><input class="fc" id="btot" readonly style="background:#f8f7ff;font-weight:700"/></div></div><div class="fg"><label class="fl">Payment Method</label><select class="fc"><option>cash</option><option>card</option><option>online</option><option>upi</option></select></div></div><div class="mf"><button class="btn bs" data-close="m-addbill">Cancel</button><button class="btn bp" data-toast="Bill created!" data-close="m-addbill">Save Bill</button></div></div></div>
 
-<div class="ov" id="m-receipt" style="display:none"><div class="mb" style="max-width:400px"><div class="mh"><span class="mt2">Receipt</span><button class="mc" data-close="m-receipt">&#10005;</button></div><div class="rcp"><div style="text-align:center;margin-bottom:14px"><div style="font-size:32px">&#127947;</div><div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800">FitPro GYM</div><div style="font-size:12px;color:#666;margin-top:4px">Invoice: INV-20260218-1042 | 18/02/2026</div></div><hr class="rdiv"/><div class="rrow"><span>Customer:</span><span>Rahul Sharma</span></div><div class="rrow"><span>Payment:</span><span>UPI</span></div><hr class="rdiv"/><div class="rrow"><span>Subtotal:</span><span>Rs.2,499</span></div><div class="rrow"><span>Tax (5%):</span><span>Rs.125</span></div><div class="rrow"><span>Discount:</span><span>Rs.0</span></div><hr class="rdiv"/><div class="rrow rtot"><span>TOTAL:</span><span>Rs.2,624</span></div><div style="text-align:center;margin-top:14px;font-size:12px;color:#666">Thank you for choosing FitPro GYM! Stay Fit.</div></div><div class="mf"><button class="btn bs" data-close="m-receipt">Close</button><button class="btn bg2" id="printBtn">&#128424; Print</button></div></div></div>
+<div class="ov" id="m-receipt" style="display:none"><div class="mb" style="max-width:400px"><div class="mh"><span class="mt2">Receipt</span><button class="mc" data-close="m-receipt">&#10005;</button></div><div class="rcp"><div style="text-align:center;margin-bottom:14px"><div style="font-size:32px">&#127947;</div><div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800">FitPro GYM</div><div style="font-size:12px;color:#666;margin-top:4px">Invoice: INV-20260218-1042 | 18/02/2026</div></div><hr class="rdiv"/><div class="rrow"><span>Customer:</span><span>Rahul Sharma</span></div><div class="rrow"><span>Payment:</span><span>UPI</span></div><hr class="rdiv"/><div class="rrow"><span>Subtotal:</span><span>Rs.2,499</span></div><div class="rrow"><span>Tax (5%):</span><span>Rs.125</span></div><div class="rrow"><span>Discount:</span><span>Rs.0</span></div><hr class="rdiv"/><div class="rrow rtot"><span>TOTAL:</span><span>Rs.2,624</span></div><div style="text-align:center;margin-top:14px;font-size:12px;color:#666">Thank you for choosing FitPro GYM! Stay Fit.</div></div><div class="mf"><button class="btn bs" data-close="m-receipt">Close</button><button class="btn bg2" id="printBtn" onclick="window.print()">&#128424; Print</button></div></div></div>
 
 <div class="ov" id="m-addgym" style="display:none"><div class="mb"><div class="mh"><span class="mt2">Add GYM Activity</span><button class="mc" data-close="m-addgym">&#10005;</button></div><div class="mbod"><div class="fr2"><div class="fg"><label class="fl">Activity Name *</label><input class="fc" placeholder="e.g. Yoga"/></div><div class="fg"><label class="fl">Category</label><select class="fc"><option value="">Select</option><option>Mind and Body</option><option>Cardio</option><option>Strength</option><option>HIIT</option><option>Combat Sports</option></select></div></div><div class="fg"><label class="fl">Description</label><textarea class="fc" placeholder="Activity description..."></textarea></div><div class="fr2"><div class="fg"><label class="fl">Duration (mins)</label><input type="number" class="fc" placeholder="60"/></div><div class="fg"><label class="fl">Capacity</label><input type="number" class="fc" placeholder="20"/></div></div><div class="fr2"><div class="fg"><label class="fl">Trainer</label><input class="fc" placeholder="Trainer name"/></div><div class="fg"><label class="fl">Schedule</label><input class="fc" placeholder="Mon-Wed-Fri 7:00 AM"/></div></div></div><div class="mf"><button class="btn bs" data-close="m-addgym">Cancel</button><button class="btn bp" data-toast="Activity added!" data-close="m-addgym">Add Activity</button></div></div></div>
 
@@ -504,7 +504,7 @@ tbody tr:last-child td{border-bottom:none}
 <div class="toast" id="toastEl"></div>
 
 <script>
-// Global login functions - must be outside IIFE for onclick to work
+// ALL GLOBAL FUNCTIONS - accessible from onclick attributes
 function doLogin() {
   var u = document.getElementById("em").value.trim();
   var p = document.getElementById("pw").value.trim();
@@ -520,7 +520,30 @@ function doLogout() {
   document.getElementById("DP").style.display = "none";
   document.getElementById("LP").style.display = "grid";
 }
+function openSidebar() {
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("sbOverlay").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sbOverlay").classList.remove("show");
+  document.body.style.overflow = "";
+}
+var TITLES = {dashboard:"Dashboard",customers:"Customers",products:"Products",orders:"Orders",billing:"Billing & Receipts",gym:"GYM Activities"};
+function showSec(s) {
+  document.querySelectorAll(".sec").forEach(function(x){ x.classList.remove("ac"); });
+  document.querySelectorAll(".ni").forEach(function(x){ x.classList.remove("ac"); });
+  var sec = document.getElementById("sec-" + s);
+  if (sec) sec.classList.add("ac");
+  var nav = document.getElementById("nv-" + s);
+  if (nav) nav.classList.add("ac");
+  document.getElementById("ttl").textContent = TITLES[s] || s;
+  document.getElementById("tsb").textContent = "FitPro - " + (TITLES[s] || s);
+  if (window.innerWidth <= 768) closeSidebar();
+}
 </script>
+
 <script>
 (function() {
   var gymData = [
@@ -565,32 +588,6 @@ function doLogout() {
 
   function openModal(id) { document.getElementById(id).style.display = "flex"; }
   function closeModal(id) { document.getElementById(id).style.display = "none"; }
-
-  // Sidebar open/close for mobile
-  function openSidebar() {
-    document.getElementById("sidebar").classList.add("open");
-    document.getElementById("sbOverlay").classList.add("show");
-    document.body.style.overflow = "hidden";
-  }
-  function closeSidebar() {
-    document.getElementById("sidebar").classList.remove("open");
-    document.getElementById("sbOverlay").classList.remove("show");
-    document.body.style.overflow = "";
-  }
-
-  var TITLES = {dashboard:"Dashboard",customers:"Customers",products:"Products",orders:"Orders",billing:"Billing & Receipts",gym:"GYM Activities"};
-  function showSec(s) {
-    document.querySelectorAll(".sec").forEach(function(x) { x.classList.remove("ac"); });
-    document.querySelectorAll(".ni").forEach(function(x) { x.classList.remove("ac"); });
-    var sec = document.getElementById("sec-" + s);
-    if (sec) sec.classList.add("ac");
-    var nav = document.getElementById("nv-" + s);
-    if (nav) nav.classList.add("ac");
-    document.getElementById("ttl").textContent = TITLES[s] || s;
-    document.getElementById("tsb").textContent = "FitPro - " + (TITLES[s] || s);
-    // Auto close sidebar on mobile after navigation
-    if (window.innerWidth <= 768) closeSidebar();
-  }
 
   function toggleGrp(c, v) {
     var ce = document.getElementById(c), ve = document.getElementById(v);
@@ -644,8 +641,25 @@ function doLogout() {
 
   // Overlay + hamburger
   document.getElementById("sbOverlay").addEventListener("click", closeSidebar);
-  document.getElementById("hamburger").addEventListener("click", function(e){ e.stopPropagation(); openSidebar(); });
 
+  // Handle data-close and data-toast via delegation
+  document.addEventListener("click", function(e) {
+    var t = e.target;
+    var closeEl = t.closest("[data-close]");
+    var toastEl = t.closest("[data-toast]");
+    var actEl = t.closest("[data-a]");
+    if (toastEl) showToast(toastEl.getAttribute("data-toast"));
+    if (closeEl) { closeModal(closeEl.getAttribute("data-close")); return; }
+    if (!actEl) return;
+    var action = actEl.getAttribute("data-a");
+    if (action === "vc") { viewCust(actEl); }
+    else if (action === "ec") { editCust(actEl); }
+    else if (action === "vo") { openModal("m-orddet"); }
+    else if (action === "eo") { openModal("m-ordsts"); }
+    else if (action === "rcp") { openModal("m-receipt"); }
+    else if (action === "eb" || action === "ep" || action === "eg") { openModal("m-addprod"); }
+    else if (action === "del") { document.getElementById("del-name").textContent = actEl.getAttribute("data-name"); openModal("m-del"); }
+  });
   document.querySelectorAll(".ov").forEach(function(ov) {
     ov.addEventListener("click", function(e) { if (e.target === ov) ov.style.display = "none"; });
   });
