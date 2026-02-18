@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<script>
+// Block Cloudflare email-decode script (not needed, causes 404 noise)
+(function(){
+  var _orig = document.createElement.bind(document);
+  document.createElement = function(tag){
+    var el = _orig(tag);
+    if(tag === 'script'){
+      Object.defineProperty(el, 'src', {
+        set: function(v){ if(v && v.indexOf('email-decode') === -1) el.setAttribute('src', v); },
+        get: function(){ return el.getAttribute('src') || ''; }
+      });
+    }
+    return el;
+  };
+})();
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FitPro Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
