@@ -314,7 +314,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="lerr" id="lerr">Invalid credentials! Please use Username: admin / Password: admin123</div>
       <div class="fg"><label class="fl">Username</label><input id="em" class="fc" type="text" value="admin" placeholder="Enter username" autocomplete="username"/></div>
       <div class="fg"><label class="fl">Password</label><input id="pw" class="fc" type="password" value="admin123" autocomplete="current-password"/></div>
-      <button class="lbtn" id="lbtn">Sign In &#8594;</button>
+      <button class="lbtn" id="lbtn" onclick="doLogin()">Sign In &#8594;</button>
       <div class="lhint">Demo: Username: admin / Password: admin123</div>
     </div>
   </div>
@@ -353,7 +353,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="sbfoot">
         <div class="uav">A</div>
         <div style="flex:1;min-width:0"><div class="un">Admin</div><div class="ur">admin</div></div>
-        <button class="lgbtn" id="logoutBtn" title="Logout">&#9099;</button>
+        <button class="lgbtn" id="logoutBtn" title="Logout" onclick="doLogout()">&#9099;</button>
       </div>
     </aside>
 
@@ -574,9 +574,11 @@ tbody tr:last-child td{border-bottom:none}
     if (window.innerWidth <= 768) closeSidebar();
   }
 
-  function doLogin() {
+  // doLogin exposed globally via window
+  window.doLogin = function() {
     var u = document.getElementById("em").value.trim();
     var p = document.getElementById("pw").value.trim();
+    console.log("Login attempt:", u, p.length);
     if (u === "admin" && p === "admin123") {
       document.getElementById("lerr").style.display = "none";
       document.getElementById("LP").style.display = "none";
@@ -584,6 +586,11 @@ tbody tr:last-child td{border-bottom:none}
     } else {
       document.getElementById("lerr").style.display = "block";
     }
+  }
+  function doLogin() { window.doLogin(); }
+  window.doLogout = function() {
+    document.getElementById("DP").style.display = "none";
+    document.getElementById("LP").style.display = "grid";
   }
 
   function toggleGrp(c, v) {
@@ -663,7 +670,7 @@ tbody tr:last-child td{border-bottom:none}
     var id = idEl ? idEl.id : "";
 
     if (id === "lbtn")         { doLogin(); return; }
-    if (id === "logoutBtn")    { document.getElementById("DP").style.display = "none"; document.getElementById("LP").style.display = "grid"; return; }
+    if (id === "logoutBtn")    { doLogout(); return; }
     if (id === "nv-dashboard") { showSec("dashboard"); return; }
     if (id === "nv-customers") { showSec("customers"); return; }
     if (id === "nv-products")  { showSec("products");  return; }
