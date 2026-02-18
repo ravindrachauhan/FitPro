@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>">
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FitPro Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -636,29 +637,13 @@ tbody tr:last-child td{border-bottom:none}
   renderGym();
 
   // Overlay + hamburger
-  // Use pointerdown for instant response (no 300ms delay)
-  document.getElementById("sbOverlay").addEventListener("pointerdown", closeSidebar);
-  document.getElementById("hamburger").addEventListener("pointerdown", function(e){ e.stopPropagation(); openSidebar(); });
+  document.getElementById("sbOverlay").addEventListener("click", closeSidebar);
+  document.getElementById("hamburger").addEventListener("click", function(e){ e.stopPropagation(); openSidebar(); });
 
   document.querySelectorAll(".ov").forEach(function(ov) {
-    ov.addEventListener("pointerdown", function(e) { if (e.target === ov) ov.style.display = "none"; });
+    ov.addEventListener("click", function(e) { if (e.target === ov) ov.style.display = "none"; });
   });
-  // Login - use both click and pointerup to cover all browsers
-  function tryLogin(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var u = document.getElementById("em").value.trim();
-    var p = document.getElementById("pw").value.trim();
-    if (u === "admin" && p === "admin123") {
-      document.getElementById("lerr").style.display = "none";
-      document.getElementById("LP").style.display = "none";
-      document.getElementById("DP").style.display = "block";
-    } else {
-      document.getElementById("lerr").style.display = "block";
-    }
-  }
-  document.getElementById("lbtn").addEventListener("click", tryLogin);
-  document.getElementById("lbtn").addEventListener("touchend", tryLogin);
+
   document.getElementById("em").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); doLogin(); } });
   document.getElementById("pw").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); doLogin(); } });
   document.getElementById("bs").addEventListener("input", calcBill);
@@ -672,11 +657,12 @@ tbody tr:last-child td{border-bottom:none}
   });
 
   // UNIFIED EVENT HANDLER
-  document.addEventListener("pointerdown", function(e) {
+  document.addEventListener("click", function(e) {
     var t = e.target;
     var idEl = t.closest("[id]");
     var id = idEl ? idEl.id : "";
 
+    if (id === "lbtn")         { doLogin(); return; }
     if (id === "logoutBtn")    { document.getElementById("DP").style.display = "none"; document.getElementById("LP").style.display = "grid"; return; }
     if (id === "nv-dashboard") { showSec("dashboard"); return; }
     if (id === "nv-customers") { showSec("customers"); return; }
