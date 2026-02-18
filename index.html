@@ -504,6 +504,24 @@ tbody tr:last-child td{border-bottom:none}
 <div class="toast" id="toastEl"></div>
 
 <script>
+// Global login functions - must be outside IIFE for onclick to work
+function doLogin() {
+  var u = document.getElementById("em").value.trim();
+  var p = document.getElementById("pw").value.trim();
+  if (u === "admin" && p === "admin123") {
+    document.getElementById("lerr").style.display = "none";
+    document.getElementById("LP").style.display = "none";
+    document.getElementById("DP").style.display = "block";
+  } else {
+    document.getElementById("lerr").style.display = "block";
+  }
+}
+function doLogout() {
+  document.getElementById("DP").style.display = "none";
+  document.getElementById("LP").style.display = "grid";
+}
+</script>
+<script>
 (function() {
   var gymData = [
     {n:"Yoga",c:"Mind and Body",d:"Relaxing yoga for flexibility",dur:60,t:"Priya Sharma",cap:15,s:"Mon-Wed-Fri 7:00 AM",st:"active",col:"#7C3AED"},
@@ -572,25 +590,6 @@ tbody tr:last-child td{border-bottom:none}
     document.getElementById("tsb").textContent = "FitPro - " + (TITLES[s] || s);
     // Auto close sidebar on mobile after navigation
     if (window.innerWidth <= 768) closeSidebar();
-  }
-
-  // doLogin exposed globally via window
-  window.doLogin = function() {
-    var u = document.getElementById("em").value.trim();
-    var p = document.getElementById("pw").value.trim();
-    console.log("Login attempt:", u, p.length);
-    if (u === "admin" && p === "admin123") {
-      document.getElementById("lerr").style.display = "none";
-      document.getElementById("LP").style.display = "none";
-      document.getElementById("DP").style.display = "block";
-    } else {
-      document.getElementById("lerr").style.display = "block";
-    }
-  }
-  function doLogin() { window.doLogin(); }
-  window.doLogout = function() {
-    document.getElementById("DP").style.display = "none";
-    document.getElementById("LP").style.display = "grid";
   }
 
   function toggleGrp(c, v) {
