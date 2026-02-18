@@ -574,9 +574,9 @@ tbody tr:last-child td{border-bottom:none}
   }
 
   function doLogin() {
-    var username = document.getElementById("em").value.trim();
-    var pass = document.getElementById("pw").value;
-    if ((username === "admin" || username === "admin" + "@" + "gym.com") && pass === "admin123") {
+    var u = document.getElementById("em").value.trim();
+    var p = document.getElementById("pw").value.trim();
+    if (u === "admin" && p === "admin123") {
       document.getElementById("lerr").style.display = "none";
       document.getElementById("LP").style.display = "none";
       document.getElementById("DP").style.display = "block";
@@ -643,13 +643,24 @@ tbody tr:last-child td{border-bottom:none}
   document.querySelectorAll(".ov").forEach(function(ov) {
     ov.addEventListener("pointerdown", function(e) { if (e.target === ov) ov.style.display = "none"; });
   });
-  // Login button uses click (not pointerdown) so input values are fully committed
-  document.getElementById("lbtn").addEventListener("click", function(e) {
+  // Login - use both click and pointerup to cover all browsers
+  function tryLogin(e) {
+    e.preventDefault();
     e.stopPropagation();
-    doLogin();
-  });
-  document.getElementById("em").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
-  document.getElementById("pw").addEventListener("keydown", function(e) { if (e.key === "Enter") doLogin(); });
+    var u = document.getElementById("em").value.trim();
+    var p = document.getElementById("pw").value.trim();
+    if (u === "admin" && p === "admin123") {
+      document.getElementById("lerr").style.display = "none";
+      document.getElementById("LP").style.display = "none";
+      document.getElementById("DP").style.display = "block";
+    } else {
+      document.getElementById("lerr").style.display = "block";
+    }
+  }
+  document.getElementById("lbtn").addEventListener("click", tryLogin);
+  document.getElementById("lbtn").addEventListener("touchend", tryLogin);
+  document.getElementById("em").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); doLogin(); } });
+  document.getElementById("pw").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); doLogin(); } });
   document.getElementById("bs").addEventListener("input", calcBill);
   document.getElementById("bt").addEventListener("input", calcBill);
   document.getElementById("bd3").addEventListener("input", calcBill);
@@ -689,4 +700,3 @@ tbody tr:last-child td{border-bottom:none}
     var actEl = t.closest("[data-a]");
     if (!actEl) return;
     var action = actEl.getAttribute("data-a");
-   
