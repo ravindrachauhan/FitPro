@@ -311,7 +311,7 @@ tbody tr:last-child td{border-bottom:none}
       <h2>Welcome Back</h2>
       <p>Sign in to your account to continue</p>
       <div class="lerr" id="lerr">Invalid credentials! Use <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4627222b2f2806213f2b6825292b">[email&#160;protected]</a> / admin123</div>
-      <div class="fg"><label class="fl">Email Address</label><input id="em" class="fc" type="email" value="admin@gym.com" autocomplete="email"/></div>
+      <div class="fg"><label class="fl">Email Address</label><input id="em" class="fc" type="email" value="" data-e="admin" data-d="gym.com" autocomplete="email"/></div>
       <div class="fg"><label class="fl">Password</label><input id="pw" class="fc" type="password" value="admin123" autocomplete="current-password"/></div>
       <button class="lbtn" id="lbtn">Sign In &#8594;</button>
       <div class="lhint">Demo: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0362676e6a6d43647a6e2d606c6e">[email&#160;protected]</a> / admin123</div>
@@ -574,9 +574,16 @@ tbody tr:last-child td{border-bottom:none}
   }
 
   function doLogin() {
-    var email = document.getElementById("em").value.trim();
+    var em = document.getElementById("em");
+    var email = em.value.trim();
+    // If field was cleared by Cloudflare obfuscation, restore from data attrs
+    if (!email && em.getAttribute("data-e")) {
+      email = em.getAttribute("data-e") + "@" + em.getAttribute("data-d");
+      em.value = email;
+    }
     var pass = document.getElementById("pw").value;
-    if (email === "admin@gym.com" && pass === "admin123") {
+    var validEmail = "admin" + "@" + "gym.com";
+    if (email === validEmail && pass === "admin123") {
       document.getElementById("lerr").style.display = "none";
       document.getElementById("LP").style.display = "none";
       document.getElementById("DP").style.display = "block";
@@ -632,6 +639,11 @@ tbody tr:last-child td{border-bottom:none}
   }
 
   // INIT
+  // Set login email via JS to avoid Cloudflare email obfuscation
+  (function(){
+    var em = document.getElementById("em");
+    if (em) em.value = "admin" + "@" + "gym.com";
+  })();
   document.getElementById("tdt").textContent = new Date().toLocaleDateString("en-IN", {weekday:"long",year:"numeric",month:"long",day:"numeric"});
   renderGym();
 
